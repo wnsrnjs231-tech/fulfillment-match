@@ -50,6 +50,12 @@
     <span th:text="${shippingRequest.description}"></span>
 </p>
 
+<div>
+    <a th:href="@{/requests/{id}/matches(id=${shippingRequest.id})}">
+        매칭 업체 보기
+    </a>
+</div>
+
 <form th:action="@{/requests/{id}/delete(id=${shippingRequest.id})}"
       method="post">
 

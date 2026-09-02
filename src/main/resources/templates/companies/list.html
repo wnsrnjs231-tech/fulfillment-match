@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>3PL 업체 목록</title>
+</head>
+<body>
+
+<h1>3PL 업체 목록</h1>
+
+<a href="/companies/new">새 업체 등록</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>업체명</th>
+        <th>담당자</th>
+        <th>연락처</th>
+        <th>서비스 지역</th>
+        <th>냉장/냉동</th>
+        <th>반품 검수</th>
+        <th>특수 포장</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="company : ${companies}">
+        <td>
+            <a th:href="@{/companies/{id}(id=${company.id})}"
+               th:text="${company.companyName}">
+            </a>
+        </td>
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.contactName}"></td>
+        <td th:text="${company.contactPhone}"></td>
+        <td th:text="${company.serviceRegion}"></td>
+        <td th:text="${company.coldStorageAvailable}"></td>
+        <td th:text="${company.returnInspectionAvailable}"></td>
+        <td th:text="${company.specialPackingAvailable}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

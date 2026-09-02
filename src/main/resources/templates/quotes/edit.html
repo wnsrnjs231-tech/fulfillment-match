@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>견적 수정</title>
+</head>
+<body>
+
+<h1>견적 수정</h1>
+
+<form th:action="@{/quotes/{id}/edit(id=${quoteId})}"
+      method="post"
+      th:object="${updateDto}">
+
+    <div>
+        <label>월 예상 비용</label>
+        <input type="number" th:field="*{monthlyFee}">
+
+        <p th:if="${#fields.hasErrors('monthlyFee')}"
+           th:errors="*{monthlyFee}">
+        </p>
+    </div>
+
+    <div>
+        <label>초기 세팅 비용</label>
+        <input type="number" th:field="*{setupFee}">
+
+        <p th:if="${#fields.hasErrors('setupFee')}"
+           th:errors="*{setupFee}">
+        </p>
+    </div>
+
+    <div>
+        <label>보관 비용</label>
+        <input type="number" th:field="*{storageFee}">
+
+        <p th:if="${#fields.hasErrors('storageFee')}"
+           th:errors="*{storageFee}">
+        </p>
+    </div>
+
+    <div>
+        <label>출고 비용</label>
+        <input type="number" th:field="*{shippingFee}">
+
+        <p th:if="${#fields.hasErrors('shippingFee')}"
+           th:errors="*{shippingFee}">
+        </p>
+    </div>
+
+    <div>
+        <label>제안 내용</label>
+        <textarea th:field="*{message}"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">수정 완료</button>
+    </div>
+
+</form>
+
+<div>
+    <a th:href="@{/quotes/{id}(id=${quoteId})}">
+        상세로 돌아가기
+    </a>
+</div>
+
+</body>
+</html>

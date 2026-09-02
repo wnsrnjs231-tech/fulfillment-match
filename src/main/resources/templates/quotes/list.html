@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>견적 목록</title>
+</head>
+<body>
+
+<h1>견적 목록</h1>
+
+<a href="/quotes/new">새 견적 등록</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>견적 ID</th>
+        <th>요청 ID</th>
+        <th>3PL 업체</th>
+        <th>월 예상 비용</th>
+        <th>초기 세팅 비용</th>
+        <th>보관 비용</th>
+        <th>출고 비용</th>
+        <th>제안 내용</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="quote : ${quotes}">
+        <td th:text="${quote.id}"></td>
+        <td th:text="${quote.shippingRequest.id}"></td>
+        <td th:text="${quote.fulfillmentCompany.companyName}"></td>
+        <td th:text="${quote.monthlyFee}"></td>
+        <td th:text="${quote.setupFee}"></td>
+        <td th:text="${quote.storageFee}"></td>
+        <td th:text="${quote.shippingFee}"></td>
+        <td th:text="${quote.message}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

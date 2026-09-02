@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>3PL 매칭 결과</title>
+</head>
+<body>
+
+<h1>3PL 매칭 결과</h1>
+
+<h2>화주 요청 정보</h2>
+
+<p>
+    요청 ID:
+    <span th:text="${shippingRequest.id}"></span>
+</p>
+
+<p>
+    상품 카테고리:
+    <span th:text="${shippingRequest.productCategory}"></span>
+</p>
+
+<p>
+    월 주문량:
+    <span th:text="${shippingRequest.monthlyOrders}"></span>
+</p>
+
+<p>
+    희망 지역:
+    <span th:text="${shippingRequest.desiredRegion}"></span>
+</p>
+
+<hr>
+
+<h2>매칭된 3PL 업체</h2>
+
+<div th:if="${#lists.isEmpty(matches)}">
+    조건에 맞는 업체가 없습니다.
+</div>
+
+<table border="1" th:unless="${#lists.isEmpty(matches)}">
+    <thead>
+    <tr>
+        <th>업체명</th>
+        <th>서비스 지역</th>
+        <th>냉장/냉동</th>
+        <th>반품 검수</th>
+        <th>특수 포장</th>
+        <th>매칭 점수</th>
+        <th>견적</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="match : ${matches}">
+        <td>
+            <a th:href="@{/companies/{id}(id=${match.company.id})}"
+               th:text="${match.company.companyName}">
+            </a>
+        </td>
+
+        <td th:text="${match.company.serviceRegion}"></td>
+        <td th:text="${match.company.coldStorageAvailable}"></td>
+        <td th:text="${match.company.returnInspectionAvailable}"></td>
+        <td th:text="${match.company.specialPackingAvailable}"></td>
+        <td th:text="${match.score}"></td>
+
+        <td>
+            <a th:href="@{/quotes/new(
+            shippingRequestId=${shippingRequest.id},
+            fulfillmentCompanyId=${match.company.id}
+        )}">
+                견적 작성
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/requests/{id}(id=${shippingRequest.id})}">
+        요청 상세로 돌아가기
+    </a>
+</div>
+
+</body>
+</html>

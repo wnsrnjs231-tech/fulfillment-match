@@ -1,8 +1,11 @@
 package com.fulfillment.match.controller;
 
+import com.fulfillment.match.domain.FulfillmentCompany;
 import com.fulfillment.match.domain.ShippingRequest;
+import com.fulfillment.match.dto.MatchingResultDto;
 import com.fulfillment.match.dto.ShippingRequestCreateDto;
 import com.fulfillment.match.dto.ShippingRequestUpdateDto;
+import com.fulfillment.match.service.FulfillmentCompanyService;
 import com.fulfillment.match.service.ShippingRequestService;
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
@@ -19,10 +22,17 @@ import java.util.List;
 public class ShippingRequestController {
 
     private final ShippingRequestService shippingRequestService;
+    private final FulfillmentCompanyService fulfillmentCompanyService;
 
-    public ShippingRequestController(ShippingRequestService shippingRequestService) {
+
+    public ShippingRequestController(
+            ShippingRequestService shippingRequestService,
+            FulfillmentCompanyService fulfillmentCompanyService
+    ) {
         this.shippingRequestService = shippingRequestService;
+        this.fulfillmentCompanyService = fulfillmentCompanyService;
     }
+
 
     @GetMapping("/requests/new")
     public String newRequestForm(Model model) {
@@ -83,6 +93,23 @@ public class ShippingRequestController {
         model.addAttribute("updateDto", updateDto);
 
         return "requests/edit";
+    }
+
+    @GetMapping("/requests/{id}/matches")
+    public String matchingCompanies(
+            @PathVariable Long id,
+            Model model
+    ) {
+        ShippingRequest request =
+                shippingRequestService.getRequest(id);
+
+        List<MatchingResultDto> matches =
+                fulfillmentCompanyService.findMatchingCompanies(request);
+
+        model.addAttribute("shippingRequest", request);
+        model.addAttribute("matches", matches);
+
+        return "requests/matches";
     }
 
     @PostMapping("/requests")

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>견적 상세</title>
+</head>
+<body>
+
+<h1>견적 상세</h1>
+
+<h2>견적 정보</h2>
+
+<p>
+    견적 ID:
+    <span th:text="${quote.id}"></span>
+</p>
+
+<p>
+    월 예상 비용:
+    <span th:text="${quote.monthlyFee}"></span>
+</p>
+
+<p>
+    초기 세팅 비용:
+    <span th:text="${quote.setupFee}"></span>
+</p>
+
+<p>
+    보관 비용:
+    <span th:text="${quote.storageFee}"></span>
+</p>
+
+<p>
+    출고 비용:
+    <span th:text="${quote.shippingFee}"></span>
+</p>
+
+<p>
+    제안 내용:
+    <span th:text="${quote.message}"></span>
+</p>
+
+<hr>
+
+<h2>화주 요청 정보</h2>
+
+<p>
+    요청 ID:
+    <span th:text="${quote.shippingRequest.id}"></span>
+</p>
+
+<p>
+    상품 카테고리:
+    <span th:text="${quote.shippingRequest.productCategory}"></span>
+</p>
+
+<p>
+    월 주문량:
+    <span th:text="${quote.shippingRequest.monthlyOrders}"></span>
+</p>
+
+<p>
+    희망 지역:
+    <span th:text="${quote.shippingRequest.desiredRegion}"></span>
+</p>
+
+<hr>
+
+<h2>3PL 업체 정보</h2>
+
+<p>
+    업체명:
+    <span th:text="${quote.fulfillmentCompany.companyName}"></span>
+</p>
+
+<p>
+    담당자:
+    <span th:text="${quote.fulfillmentCompany.contactName}"></span>
+</p>
+
+<p>
+    연락처:
+    <span th:text="${quote.fulfillmentCompany.contactPhone}"></span>
+</p>
+
+<p>
+    서비스 가능 지역:
+    <span th:text="${quote.fulfillmentCompany.serviceRegion}"></span>
+</p>
+
+<div>
+    <a th:href="@{/quotes/{id}/edit(id=${quote.id})}">
+        견적 수정
+    </a>
+</div>
+
+<div>
+    <form th:action="@{/quotes/{id}/delete(id=${quote.id})}"
+          method="post">
+        <button type="submit">견적 삭제</button>
+    </form>
+</div>
+
+<div>
+    <a href="/quotes">견적 목록으로 돌아가기</a>
+</div>
+
+</body>
+</html>
