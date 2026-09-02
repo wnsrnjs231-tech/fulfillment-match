@@ -2,6 +2,7 @@ package com.fulfillment.match.service;
 
 import com.fulfillment.match.domain.ShippingRequest;
 import com.fulfillment.match.dto.ShippingRequestCreateDto;
+import com.fulfillment.match.dto.ShippingRequestUpdateDto;
 import com.fulfillment.match.exception.ShippingRequestNotFoundException;
 import com.fulfillment.match.repository.ShippingRequestRepository;
 import org.springframework.stereotype.Service;
@@ -43,34 +44,21 @@ public class ShippingRequestService {
         return shippingRequestRepository.findAll();
     }
 
-    public ShippingRequest updateRequest(Long id, ShippingRequest updatedRequest) {
-
+    public ShippingRequest updateRequest(
+            Long id,
+            ShippingRequestUpdateDto updateDto
+    ) {
         ShippingRequest shippingRequest = getRequest(id);
 
-        shippingRequest.setProductCategory(updatedRequest.getProductCategory());
-        shippingRequest.setMonthlyOrders(updatedRequest.getMonthlyOrders());
-        shippingRequest.setSkuCount(updatedRequest.getSkuCount());
-        shippingRequest.setDesiredRegion(updatedRequest.getDesiredRegion());
-
-        shippingRequest.setCurrentLogisticsMethod(
-                updatedRequest.getCurrentLogisticsMethod()
-        );
-
-        shippingRequest.setColdStorageRequired(
-                updatedRequest.getColdStorageRequired()
-        );
-
-        shippingRequest.setReturnInspectionRequired(
-                updatedRequest.getReturnInspectionRequired()
-        );
-
-        shippingRequest.setSpecialPackingRequired(
-                updatedRequest.getSpecialPackingRequired()
-        );
-
-        shippingRequest.setDescription(
-                updatedRequest.getDescription()
-        );
+        shippingRequest.setProductCategory(updateDto.getProductCategory());
+        shippingRequest.setMonthlyOrders(updateDto.getMonthlyOrders());
+        shippingRequest.setSkuCount(updateDto.getSkuCount());
+        shippingRequest.setDesiredRegion(updateDto.getDesiredRegion());
+        shippingRequest.setCurrentLogisticsMethod(updateDto.getCurrentLogisticsMethod());
+        shippingRequest.setColdStorageRequired(updateDto.getColdStorageRequired());
+        shippingRequest.setReturnInspectionRequired(updateDto.getReturnInspectionRequired());
+        shippingRequest.setSpecialPackingRequired(updateDto.getSpecialPackingRequired());
+        shippingRequest.setDescription(updateDto.getDescription());
 
         return shippingRequestRepository.save(shippingRequest);
     }

@@ -14,7 +14,7 @@
 
     <div>
         <label>상품 카테고리</label>
-        <select name="productCategory">
+        <select th:field="*{productCategory}">
             <option value="">선택해주세요</option>
             <option value="FASHION">패션</option>
             <option value="FOOD">식품</option>
@@ -31,7 +31,7 @@
 
     <div>
         <label>월 주문량</label>
-        <input type="number" name="monthlyOrders">
+        <input type="number" th:field="*{monthlyOrders}">
 
         <p th:if="${#fields.hasErrors('monthlyOrders')}"
            th:errors="*{monthlyOrders}">
@@ -40,7 +40,7 @@
 
     <div>
         <label>SKU 수</label>
-        <input type="number" name="skuCount">
+        <input type="number" th:field="*{skuCount}">
 
         <p th:if="${#fields.hasErrors('skuCount')}"
            th:errors="*{skuCount}">
@@ -49,7 +49,7 @@
 
     <div>
         <label>희망 지역</label>
-        <input type="text" name="desiredRegion">
+        <input type="text" th:field="*{desiredRegion}">
 
         <p th:if="${#fields.hasErrors('desiredRegion')}"
            th:errors="*{desiredRegion}">
@@ -58,32 +58,32 @@
 
     <div>
         <label>
-            <input type="checkbox" name="coldStorageRequired" value="true">
+            <input type="checkbox" th:field="*{coldStorageRequired}">
             냉장/냉동 필요
         </label>
     </div>
 
     <div>
         <label>
-            <input type="checkbox" name="returnInspectionRequired" value="true">
+            <input type="checkbox" th:field="*{returnInspectionRequired}">
             반품 검수 필요
         </label>
     </div>
 
     <div>
         <label>
-            <input type="checkbox" name="specialPackingRequired" value="true">
+            <input type="checkbox" th:field="*{specialPackingRequired}">
             특수 포장 필요
         </label>
     </div>
 
     <div>
         <label>현재 물류 방식</label>
-        <select name="currentLogisticsMethod">
+        <select th:field="*{currentLogisticsMethod}">
             <option value="">선택해주세요</option>
-            <option value="SELF_FULFILLMENT">직접 출고</option>
-            <option value="THIRD_PARTY">기존 3PL 이용 중</option>
-            <option value="MIXED">직접 출고 + 3PL 병행</option>
+            <option value="SELF_FULFILLMENT">자체 물류</option>
+            <option value="THIRD_PARTY">3PL 이용</option>
+            <option value="MIXED">혼합</option>
         </select>
 
         <p th:if="${#fields.hasErrors('currentLogisticsMethod')}"
@@ -93,7 +93,7 @@
 
     <div>
         <label>추가 설명</label>
-        <textarea name="description" rows="5" cols="40"></textarea>
+        <textarea th:field="*{description}"></textarea>
     </div>
 
     <div>

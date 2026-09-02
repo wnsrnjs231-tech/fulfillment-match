@@ -8,7 +8,15 @@
 
 <h1>3PL 견적 요청 상세</h1>
 
+<div>
 <a href="/requests">목록으로 돌아가기</a>
+</div>
+
+<div>
+<a th:href="@{/requests/{id}/edit(id=${shippingRequest.id})}">
+    요청 수정
+</a>
+</div>
 
 <br><br>
 

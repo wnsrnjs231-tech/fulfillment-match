@@ -2,12 +2,14 @@ package com.fulfillment.match.controller;
 
 import com.fulfillment.match.domain.ShippingRequest;
 import com.fulfillment.match.dto.ShippingRequestCreateDto;
+import com.fulfillment.match.dto.ShippingRequestUpdateDto;
 import com.fulfillment.match.service.ShippingRequestService;
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -59,24 +61,35 @@ public class ShippingRequestController {
     }
 
     @GetMapping("/requests/{id}/edit")
-    public String editRequestForm(
-            @PathVariable Long id,
-            Model model
-    ) {
+    public String editRequestForm(@PathVariable Long id, Model model) {
+
         ShippingRequest shippingRequest =
                 shippingRequestService.getRequest(id);
 
-        model.addAttribute("shippingRequest", shippingRequest);
+        ShippingRequestUpdateDto updateDto =
+                new ShippingRequestUpdateDto();
+
+        updateDto.setProductCategory(shippingRequest.getProductCategory());
+        updateDto.setMonthlyOrders(shippingRequest.getMonthlyOrders());
+        updateDto.setSkuCount(shippingRequest.getSkuCount());
+        updateDto.setDesiredRegion(shippingRequest.getDesiredRegion());
+        updateDto.setColdStorageRequired(shippingRequest.getColdStorageRequired());
+        updateDto.setReturnInspectionRequired(shippingRequest.getReturnInspectionRequired());
+        updateDto.setSpecialPackingRequired(shippingRequest.getSpecialPackingRequired());
+        updateDto.setCurrentLogisticsMethod(shippingRequest.getCurrentLogisticsMethod());
+        updateDto.setDescription(shippingRequest.getDescription());
+
+        model.addAttribute("requestId", id);
+        model.addAttribute("updateDto", updateDto);
 
         return "requests/edit";
     }
 
     @PostMapping("/requests")
     public String createRequest(
-            @Valid ShippingRequestCreateDto requestDto,
+            @Valid @ModelAttribute("requestDto") ShippingRequestCreateDto requestDto,
             BindingResult bindingResult
     ) {
-
         if (bindingResult.hasErrors()) {
             return "requests/new";
         }
@@ -93,5 +106,21 @@ public class ShippingRequestController {
         shippingRequestService.deleteRequest(id);
 
         return "redirect:/requests";
+    }
+
+    @PostMapping("/requests/{id}/edit")
+    public String updateRequest(
+            @PathVariable Long id,
+            @Valid @ModelAttribute("updateDto") ShippingRequestUpdateDto updateDto,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("requestId", id);
+            return "requests/edit";
+        }
+
+        shippingRequestService.updateRequest(id, updateDto);
+        return "redirect:/requests/" + id;
     }
 }

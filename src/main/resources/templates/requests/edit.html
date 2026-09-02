@@ -8,9 +8,9 @@
 
 <h1>3PL 견적 요청 수정</h1>
 
-<form th:action="@{/requests/{id}/edit(id=${shippingRequest.id})}"
+<form th:action="@{/requests/{id}/edit(id=${requestId})}"
       method="post"
-      th:object="${shippingRequest}">
+      th:object="${updateDto}">
 
     <div>
         <label>상품 카테고리</label>
@@ -27,16 +27,28 @@
     <div>
         <label>월 주문량</label>
         <input type="number" th:field="*{monthlyOrders}">
+
+        <p th:if="${#fields.hasErrors('monthlyOrders')}"
+           th:errors="*{monthlyOrders}">
+        </p>
     </div>
 
     <div>
         <label>SKU 수</label>
         <input type="number" th:field="*{skuCount}">
+
+        <p th:if="${#fields.hasErrors('skuCount')}"
+           th:errors="*{skuCount}">
+        </p>
     </div>
 
     <div>
         <label>희망 지역</label>
         <input type="text" th:field="*{desiredRegion}">
+
+        <p th:if="${#fields.hasErrors('desiredRegion')}"
+           th:errors="*{desiredRegion}">
+        </p>
     </div>
 
     <div>
