@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요청 상세</title>
+</head>
+<body>
+
+<h1>3PL 견적 요청 상세</h1>
+
+<a href="/requests">목록으로 돌아가기</a>
+
+<br><br>
+
+<p>
+    요청 번호:
+    <span th:text="${shippingRequest.id}"></span>
+</p>
+
+<p>
+    상품 카테고리:
+    <span th:text="${shippingRequest.productCategory}"></span>
+</p>
+
+<p>
+    월 주문량:
+    <span th:text="${shippingRequest.monthlyOrders}"></span>
+</p>
+
+<p>
+    SKU 수:
+    <span th:text="${shippingRequest.skuCount}"></span>
+</p>
+
+<p>
+    희망 지역:
+    <span th:text="${shippingRequest.desiredRegion}"></span>
+</p>
+
+<p>
+    추가 설명:
+    <span th:text="${shippingRequest.description}"></span>
+</p>
+
+<form th:action="@{/requests/{id}/delete(id=${shippingRequest.id})}"
+      method="post">
+
+    <button type="submit">요청 삭제</button>
+
+</form>
+
+</body>
+</html>
