@@ -1,23 +1,43 @@
 package com.fulfillment.match.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+import java.util.Map;
+
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ShippingRequestNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleShippingRequestNotFound(
-            ShippingRequestNotFoundException e,
-            Model model
+    public Map<String, Object> handleShippingRequestNotFound(
+            ShippingRequestNotFoundException e
     ) {
-        System.out.println("404 예외 처리됨");
+        return Map.of(
+                "status", 404,
+                "message", e.getMessage()
+        );
+    }
 
-        model.addAttribute("message", e.getMessage());
-        return "error/404";
+    @ExceptionHandler(FulfillmentCompanyNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, Object> handleFulfillmentCompanyNotFound(
+            FulfillmentCompanyNotFoundException e
+    ) {
+        return Map.of(
+                "status", 404,
+                "message", e.getMessage()
+        );
+    }
+
+    @ExceptionHandler(QuoteNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, Object> handleQuoteNotFound(QuoteNotFoundException e) {
+        return Map.of(
+                "status", 404,
+                "message", e.getMessage()
+        );
     }
 }

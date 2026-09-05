@@ -1,0 +1,152 @@
+### =========================
+### Fulfillment Company
+### =========================
+
+### 업체 전체 조회
+GET http://localhost:8080/api/companies
+
+
+### 업체 1개 조회
+GET http://localhost:8080/api/companies/1
+
+
+### 업체 생성
+POST http://localhost:8080/api/companies
+Content-Type: application/json
+
+{
+  "companyName": "서울풀필먼트",
+  "businessNumber": "123-45-67890",
+  "contactName": "홍길동",
+  "contactPhone": "010-1234-5678",
+  "contactEmail": "test@test.com",
+  "address": "서울",
+  "serviceRegion": "서울 경기",
+  "coldStorageAvailable": true,
+  "returnInspectionAvailable": true,
+  "specialPackingAvailable": false
+}
+
+
+### 업체 수정
+PUT http://localhost:8080/api/companies/1
+Content-Type: application/json
+
+{
+  "companyName": "서울풀필먼트 수정",
+  "businessNumber": "123-45-67890",
+  "contactName": "김담당",
+  "contactPhone": "010-9999-9999",
+  "contactEmail": "update@test.com",
+  "address": "서울 강남구",
+  "serviceRegion": "서울 경기 인천",
+  "coldStorageAvailable": true,
+  "returnInspectionAvailable": true,
+  "specialPackingAvailable": true
+}
+
+
+### 업체 삭제
+DELETE http://localhost:8080/api/companies/1
+
+
+### =========================
+### Shipping Request
+### =========================
+
+### 요청 전체 조회
+GET http://localhost:8080/api/requests
+
+
+### 요청 1개 조회
+GET http://localhost:8080/api/quotes/999
+
+
+### 요청 생성
+POST http://localhost:8080/api/requests
+Content-Type: application/json
+
+{
+  "productCategory": "FOOD",
+  "monthlyOrders": 4000,
+  "skuCount": 100,
+  "desiredRegion": "서울",
+  "coldStorageRequired": true,
+  "returnInspectionRequired": true,
+  "specialPackingRequired": false,
+  "currentLogisticsMethod": "SELF_FULFILLMENT",
+  "description": "식품 물류 업체를 찾습니다."
+}
+
+
+### 요청 수정
+PUT http://localhost:8080/api/requests/1
+Content-Type: application/json
+
+{
+  "productCategory": "FOOD",
+  "monthlyOrders": 6000,
+  "skuCount": 150,
+  "desiredRegion": "서울",
+  "coldStorageRequired": true,
+  "returnInspectionRequired": true,
+  "specialPackingRequired": false,
+  "currentLogisticsMethod": "SELF_FULFILLMENT",
+  "description": "월 주문량이 증가했습니다."
+}
+
+
+### 요청 삭제
+DELETE http://localhost:8080/api/requests/1
+
+
+### =========================
+### Matching
+### =========================
+
+### 요청 1번에 맞는 업체 조회
+GET http://localhost:8080/api/requests/1/matches
+
+
+### =========================
+### Quote
+### =========================
+
+### 견적 전체 조회
+GET http://localhost:8080/api/quotes
+
+
+### 견적 1개 조회
+GET http://localhost:8080/api/quotes/1
+
+
+### 견적 생성
+POST http://localhost:8080/api/quotes
+Content-Type: application/json
+
+{
+  "shippingRequestId": 1,
+  "fulfillmentCompanyId": 1,
+  "monthlyFee": 1000000,
+  "setupFee": 100000,
+  "storageFee": 300000,
+  "shippingFee": 600000,
+  "message": "서울 및 경기 지역 대응 가능합니다."
+}
+
+
+### 견적 수정
+PUT http://localhost:8080/api/quotes/1
+Content-Type: application/json
+
+{
+  "monthlyFee": 1200000,
+  "setupFee": 100000,
+  "storageFee": 350000,
+  "shippingFee": 700000,
+  "message": "수정된 견적입니다."
+}
+
+
+### 견적 삭제
+DELETE http://localhost:8080/api/quotes/1
